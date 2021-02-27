@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "140156230949",
+    "firebase_url": "https://jungleboxing-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "jungleboxing",
+    "storage_bucket": "jungleboxing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140156230949:android:4ff0a26a420ab20b2e4ecc",
+        "android_client_info": {
+          "package_name": "com.Tove.JungleBoxing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140156230949-m03de07e1k89v1cne6mhemcg58ruc5ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlulf-AqJUuMHL7e2HBewq0kjuQXg6bDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140156230949-m03de07e1k89v1cne6mhemcg58ruc5ug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
