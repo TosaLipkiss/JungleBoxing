@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void playerTwo()
+    public void PlayerTwo()
     {
         if (currentGameState == GameState.performSelection)
         {
@@ -250,32 +250,32 @@ public class GameManager : MonoBehaviour
     }
 
     //GUI Buttons and bars
-    public void blockLeftButton()
+    public void BlockLeftButton()
     {
         selection = "BlockLeft";
     }
 
-    public void blockRightButton()
+    public void BlockRightButton()
     {
         selection = "BlockRight";
     }
 
-    public void punchLeftButton()
+    public void PunchLeftButton()
     {
         selection = "PunchLeft";
     }
 
-    public void punchRightButton()
+    public void PunchRightButton()
     {
         selection = "PunchRight";
     }
 
-    public void enemyPlayerHealth()
+    public void EnemyPlayerHealth()
     {
         enemyHealthBar.fillAmount = enemyPlayer.currentHealth / enemyPlayer.maxHealth;
     }
 
-    public void myPlayerHealth()
+    public void MyPlayerHealth()
     {
         playerHealthBar.fillAmount = myPlayer.currentHealth / myPlayer.maxHealth;
     }
