@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerOneHealth : MonoBehaviour
+public class PlayerOneHealth : MonoBehaviour
 {
     public GameManager gameManager;
 
     void Update()
     {
-        gameManager.myPlayerHealth();
+        gameManager.MyPlayerHealth();
     }
 }

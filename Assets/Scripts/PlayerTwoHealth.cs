@@ -8,6 +8,6 @@ public class PlayerTwoHealth : MonoBehaviour
 
     void Update()
     {
-        gameManager.enemyPlayerHealth();
+        gameManager.EnemyPlayerHealth();
     }
 }
