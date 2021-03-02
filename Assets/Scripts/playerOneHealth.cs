@@ -8,6 +8,6 @@ public class PlayerOneHealth : MonoBehaviour
 
     void Update()
     {
-        gameManager.MyPlayerHealth();
+       // gameManager.MyPlayerHealth();
     }
 }

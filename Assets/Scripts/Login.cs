@@ -26,12 +26,26 @@ public class Login : MonoBehaviour
 
         playButton.interactable = false;
 
-        playButton.onClick.AddListener(() => ActiveUser.Instance.LoadUserData());
+        playButton.onClick.AddListener(() => UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene"));
     }
 
     public void LoginUser()
     {
         StartCoroutine(SignIn(username.text, password.text));
+    }
+
+    public void LoginUserTest1()
+    {
+        StartCoroutine(SignIn("wholly@test.test", "password"));
+    }
+
+    public void LoginUserTest2()
+    {
+        StartCoroutine(SignIn("reddington@test.test", "password"));
+    }
+    public void LoginUserTest3()
+    {
+        StartCoroutine(SignIn("hoppetossa@test.test", "password"));
     }
 
     public IEnumerator SignIn(string email, string password)

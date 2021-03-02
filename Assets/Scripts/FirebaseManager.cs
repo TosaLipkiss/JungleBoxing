@@ -68,4 +68,34 @@ public class FirebaseManager : MonoBehaviour
             onSaveDelegate();
         }
     }
+
+    public IEnumerator CheckForGame(string path, OnLoadedDelegate onLoadedDelegate = null)
+    {
+        Debug.Log("checking for game");
+        var dataTask = db.GetReference("games").OrderByChild("status").EqualTo("new").GetValueAsync();
+
+        yield return new WaitUntil(() => dataTask.IsCompleted);
+
+        string jsonData = dataTask.Result.GetRawJsonValue();
+
+        Debug.Log("game data: " + jsonData);
+
+        if (dataTask.Exception != null)
+            Debug.LogWarning(dataTask.Exception);
+
+        if (dataTask.Result.ChildrenCount > 0)
+        {
+            foreach (var item in dataTask.Result.Children)
+            {
+                Debug.Log("multiple data found: " + item.GetRawJsonValue());
+
+                onLoadedDelegate(item.GetRawJsonValue());
+                break;
+            }
+        }
+        else
+        {
+            onLoadedDelegate(jsonData);
+        }
+    }
 }

@@ -36,6 +36,7 @@ public class ActiveUser : MonoBehaviour
     //Makes sure that we have a userInfo object that we can access.
     public void LoadUser(string jsonData)
     {
+        /*
         if (jsonData == null || jsonData == "")
         {
             //No user, create a new empty one.
@@ -46,7 +47,7 @@ public class ActiveUser : MonoBehaviour
         {
             userInfo = JsonUtility.FromJson<UserInfo>(jsonData);
         }
-
+        */
         //Go to the next scene, lobby
         SceneManager.LoadScene("GameScene");
     }
