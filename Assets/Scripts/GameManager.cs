@@ -30,8 +30,9 @@ public class GameInfo
     public string status;
     public string displayGameName;
     public string gameID;
-    public string player1;
-    public string player2;
+    public string turn;
+    public PlayerInfo player1;
+    public PlayerInfo player2;
 }
 
 public enum BlockSideState : int
@@ -263,9 +264,25 @@ public class GameManager : MonoBehaviour
 
             //Create game structure
             var newGame = new GameInfo();
-            newGame.player1 = userID;
+         //   newGame.player1 = userID;
             newGame.status = "new";
             newGame.gameID = key;
+
+            newGame.turn = "Player1";
+
+            newGame.player1 = new PlayerInfo();
+            newGame.player1.currentHealth = 100;
+            newGame.player1.maxHealth = 100;
+            newGame.player1.power = 0;
+            newGame.player1.blockState = BlockSideState.None;
+            newGame.player1.userID = userID;
+
+            newGame.player2 = new PlayerInfo();
+            newGame.player2.currentHealth = 100;
+            newGame.player2.maxHealth = 100;
+            newGame.player2.power = 0;
+            newGame.player2.blockState = BlockSideState.None;
+            newGame.player2.userID = "";
 
             //Save our new game
             StartCoroutine(fbManager.SaveData(path, JsonUtility.ToJson(newGame)));
@@ -284,7 +301,8 @@ public class GameManager : MonoBehaviour
             var game = JsonUtility.FromJson<GameInfo>(jsonData);
 
             //Update the game
-            game.player2 = userID;
+            game.player2.userID = userID;
+
             game.status = "full";
             StartCoroutine(fbManager.SaveData("games/" + game.gameID, JsonUtility.ToJson(game)));
 
