@@ -44,6 +44,11 @@ public enum BlockSideState : int
 
 public class GameManager : MonoBehaviour
 {
+    GameInfo currentGameInfo;
+
+    float downloadInterval = 10.0f;
+    float timer = 0f;
+
     public Text status;
     UserInfo user;
     string userID;
@@ -125,6 +130,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        timer += Time.deltaTime;
+
+        if(timer >= downloadInterval)
+        {
+            DownloadGameInfo();
+            timer = 0f;
+        }
+
         if(currentGameState == GameState.playerSelection)
         {
             if(selection != null)
@@ -209,7 +222,7 @@ public class GameManager : MonoBehaviour
     private void Log(string message)
     {
         status.text = message;
-        Debug.Log(message);
+       // Debug.Log(message);
     }
 
     //process the user data
@@ -249,7 +262,8 @@ public class GameManager : MonoBehaviour
         {
             //We already have a game, load it
             Log("Loading Game: " + user.activeGame);
-            StartCoroutine(fbManager.LoadData("games/" + user.activeGame, GameLoaded));
+            DownloadGameInfo();
+            //StartCoroutine(fbManager.LoadData("games/" + user.activeGame, GameLoaded));
         }
     }
 
@@ -316,7 +330,7 @@ public class GameManager : MonoBehaviour
 
     private void GameLoaded(string jsonData)
     {
-        Debug.Log(jsonData);
+        //Debug.Log(jsonData);
         if (jsonData == null || jsonData == "")
         {
             Log("no game data");
@@ -325,6 +339,8 @@ public class GameManager : MonoBehaviour
         else
         {
             GameLoaded(JsonUtility.FromJson<GameInfo>(jsonData));
+            currentGameInfo = JsonUtility.FromJson<GameInfo>(jsonData);
+            Debug.Log("Data download complete");
         }
     }
 
@@ -332,6 +348,12 @@ public class GameManager : MonoBehaviour
     {
         Log("Game has been loaded");
         GetComponent<GameStatus>().StartGame(game);
+    }
+
+    private void DownloadGameInfo()
+    {
+        Debug.Log("Starting downloading new data...");
+        StartCoroutine(fbManager.LoadData("games/" + user.activeGame, GameLoaded));
     }
 
 
