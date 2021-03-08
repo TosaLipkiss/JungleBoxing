@@ -287,7 +287,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 801808998}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: punchLeftButton
+        m_MethodName: PunchLeftButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -565,7 +565,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 801808998}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: blockRightButton
+        m_MethodName: BlockRightButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1734,7 +1734,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 801808998}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: punchRightButton
+        m_MethodName: PunchRightButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2363,7 +2363,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 801808998}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: blockLeftButton
+        m_MethodName: BlockLeftButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

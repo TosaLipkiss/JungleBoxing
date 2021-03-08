@@ -1,5 +1,7 @@
+using Firebase.Auth;
 using Firebase.Database;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class FirebaseManager : MonoBehaviour
@@ -22,6 +24,8 @@ public class FirebaseManager : MonoBehaviour
             Instance = this;
 
         db = FirebaseDatabase.DefaultInstance;
+
+      //  FirebaseAuth.DefaultInstance.SignOut();
     }
 
     //loads the data at "path" then returns json result to the delegate/callback function
@@ -72,20 +76,22 @@ public class FirebaseManager : MonoBehaviour
     public IEnumerator CheckForGame(string path, OnLoadedDelegate onLoadedDelegate = null)
     {
         Debug.Log("checking for game");
-        var dataTask = db.GetReference("games").OrderByChild("status").EqualTo("new").GetValueAsync();
+        //var dataTask = db.GetReference("games").OrderByChild("status").EqualTo("new").GetValueAsync();
+        var dataTask = db.GetReference("games").GetValueAsync();
 
         yield return new WaitUntil(() => dataTask.IsCompleted);
 
-        string jsonData = dataTask.Result.GetRawJsonValue();
+        // string jsonData = dataTask.Result.GetRawJsonValue();
 
-        Debug.Log("game data: " + jsonData);
+        //Debug.Log("game data: " + jsonData);
 
         if (dataTask.Exception != null)
             Debug.LogWarning(dataTask.Exception);
 
-        if (dataTask.Result.ChildrenCount > 0)
+        var games = dataTask.Result.Children.Where(x => (string)x.Child("status").Value == "new").ToArray();
+        if (games.Length > 0)
         {
-            foreach (var item in dataTask.Result.Children)
+            foreach (var item in games)
             {
                 Debug.Log("multiple data found: " + item.GetRawJsonValue());
 
@@ -95,7 +101,7 @@ public class FirebaseManager : MonoBehaviour
         }
         else
         {
-            onLoadedDelegate(jsonData);
+            onLoadedDelegate("");
         }
     }
 }

@@ -44,7 +44,7 @@ public enum BlockSideState : int
 
 public class GameManager : MonoBehaviour
 {
-    GameInfo currentGameInfo;
+    GameInfo currentGameInfo = null;
 
     float downloadInterval = 10.0f;
     float timer = 0f;
@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
 
     enum GameState
     {
+        waitingForMatchStart,
+        connectUserData,
         enemyTurn,
         playerSelection,
         performSelection,
@@ -138,23 +140,84 @@ public class GameManager : MonoBehaviour
             timer = 0f;
         }
 
-        if(currentGameState == GameState.playerSelection)
+        //When game is filled max player
+        if (currentGameState == GameState.waitingForMatchStart)
         {
-            if(selection != null)
+            //Debug.Log("waiting");
+            if (currentGameInfo != null)
+            {
+                if (currentGameInfo.status == "full")
+                {
+                    Debug.Log("we should not longer wait, the game has been filled");
+                    currentGameState = GameState.connectUserData;
+                }
+            }
+        }
+
+        //Decide which "player" is whos
+        if (currentGameState == GameState.connectUserData)
+        {
+            string player1UserId = currentGameInfo.player1.userID;
+            string player2UserId = currentGameInfo.player2.userID;
+
+            if (userID == player1UserId)
+            {
+                myPlayer = currentGameInfo.player1;
+                enemyPlayer = currentGameInfo.player2;
+            }
+            else
+            {
+                myPlayer = currentGameInfo.player2;
+                enemyPlayer = currentGameInfo.player1;
+            }
+
+            string whos_turn = currentGameInfo.turn;
+
+            if (whos_turn == "Player1")
+            {
+                if (player1UserId == userID)
+                {
+                    currentGameState = GameState.playerSelection;
+                }
+                else
+                {
+                    currentGameState = GameState.enemyTurn;
+                }
+            }
+
+            if (whos_turn == "Player2")
+            {
+                if (player2UserId == userID)
+                {
+                    currentGameState = GameState.playerSelection;
+                }
+                else
+                {
+                    currentGameState = GameState.enemyTurn;
+                }
+            }
+
+        }
+
+        if (currentGameState == GameState.playerSelection)
+        {
+            if (selection != null)
             {
                 currentGameState = GameState.performSelection;
             }
         }
 
+
+        //Fight moves
         if (currentGameState == GameState.performSelection)
         {
             if (selection == "PunchLeft")
             {
                 playerOneAnimator.SetTrigger("Punch");
-                if (enemyPlayer.blockState == BlockSideState.Right)
+                if (enemyPlayer.blockState == BlockSideState.Right || enemyPlayer.blockState == BlockSideState.None)
                 {
                     playerTwoAnimator.SetTrigger("Damaged");
-                    Debug.Log("Punch Left");
+
                     enemyPlayer.currentHealth -= 10;
                 }
                 else if (enemyPlayer.blockState == BlockSideState.Left)
@@ -171,7 +234,7 @@ public class GameManager : MonoBehaviour
             if (selection == "PunchRight")
             {
                 playerOneAnimator.SetTrigger("Punch");
-                if (enemyPlayer.blockState == BlockSideState.Left)
+                if (enemyPlayer.blockState == BlockSideState.Left || enemyPlayer.blockState == BlockSideState.None)
                 {
                     playerTwoAnimator.SetTrigger("Damaged");
                     Debug.Log("Punch Right");
@@ -206,15 +269,46 @@ public class GameManager : MonoBehaviour
 
         if (currentGameState == GameState.updateDatabase)
         {
+            // upload GameInfo to firebase
+            if (currentGameInfo.turn == "Player1")
+            {
+                currentGameInfo.turn = "Player2";
+            }
+            else if (currentGameInfo.turn == "Player2")
+            {
+                currentGameInfo.turn = "Player1";
+            }
+
+            StartCoroutine(fbManager.SaveData("games/" + currentGameInfo.gameID, JsonUtility.ToJson(currentGameInfo)));
+
             currentGameState = GameState.enemyTurn;
-            //updatera json/databasen
         }
 
         if(currentGameState == GameState.enemyTurn)
         {
             Debug.Log("enemy turn");
-            turn = "Player2";
+            //turn = "Player2";
             //enemy turn, my player cannot do anything
+
+            string whos_turn = currentGameInfo.turn;
+            string player1_user_id = currentGameInfo.player1.userID;
+            string player2_user_id = currentGameInfo.player2.userID;
+
+            if (whos_turn == "Player1")
+            {
+                if (player1_user_id == userID)
+                {
+                    currentGameState = GameState.playerSelection;
+                }
+            }
+
+            if (whos_turn == "Player2")
+            {
+                if (player2_user_id == userID)
+                {
+                    currentGameState = GameState.playerSelection;
+                }
+            }
         }
     }
 
@@ -222,7 +316,7 @@ public class GameManager : MonoBehaviour
     private void Log(string message)
     {
         status.text = message;
-       // Debug.Log(message);
+        Debug.Log(message);
     }
 
     //process the user data
@@ -333,8 +427,11 @@ public class GameManager : MonoBehaviour
         //Debug.Log(jsonData);
         if (jsonData == null || jsonData == "")
         {
-            Log("no game data");
-            Debug.LogError("Error while loading game data");
+           // Log("no game data");
+           // Debug.LogError("Error while loading game data");
+            Log("No game, creating new game...");
+            //lösningen på problemet
+            StartCoroutine(fbManager.CheckForGame("games/", NewGameLoaded));
         }
         else
         {
