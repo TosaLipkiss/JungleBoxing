@@ -171,9 +171,9 @@ public class GameManager : MonoBehaviour
                 enemyPlayer = currentGameInfo.player1;
             }
 
-            string whos_turn = currentGameInfo.turn;
+            string whosTurn = currentGameInfo.turn;
 
-            if (whos_turn == "Player1")
+            if (whosTurn == "Player1")
             {
                 if (player1UserId == userID)
                 {
@@ -185,7 +185,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (whos_turn == "Player2")
+            if (whosTurn == "Player2")
             {
                 if (player2UserId == userID)
                 {
@@ -217,7 +217,6 @@ public class GameManager : MonoBehaviour
                 if (enemyPlayer.blockState == BlockSideState.Right || enemyPlayer.blockState == BlockSideState.None)
                 {
                     playerTwoAnimator.SetTrigger("Damaged");
-
                     enemyPlayer.currentHealth -= 10;
                 }
                 else if (enemyPlayer.blockState == BlockSideState.Left)
@@ -280,7 +279,6 @@ public class GameManager : MonoBehaviour
             }
 
             StartCoroutine(fbManager.SaveData("games/" + currentGameInfo.gameID, JsonUtility.ToJson(currentGameInfo)));
-
             currentGameState = GameState.enemyTurn;
         }
 
@@ -453,7 +451,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(fbManager.LoadData("games/" + user.activeGame, GameLoaded));
     }
 
-
+    /*
     public void PlayerTwo()
     {
         if (currentGameState == GameState.performSelection)
@@ -515,7 +513,7 @@ public class GameManager : MonoBehaviour
         selection = null;
         currentGameState = GameState.playerSelection;
     }
-
+    */
     //GUI Buttons and bars
     public void BlockLeftButton()
     {
