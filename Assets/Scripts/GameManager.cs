@@ -49,23 +49,27 @@ public class GameManager : MonoBehaviour
     float downloadInterval = 10.0f;
     float timer = 0f;
 
+    public Text state;
     public Text status;
     UserInfo user;
     string userID;
     FirebaseManager fbManager;
 
-    public Animator playerOneAnimator;
-    public Animator playerTwoAnimator;
+    public Animator leopard;
+    public Animator zebra;
 
-    string turn;
-    string me;
+   // string turn;
+   // string me;
     string selection = null;
 
     PlayerInfo enemyPlayer;
     PlayerInfo myPlayer;
 
-    PlayerInfo player1;
-    PlayerInfo player2;
+    Animator myCharacter;
+    Animator enemyCharacter;
+
+    //PlayerInfo player1;
+    //PlayerInfo player2;
 
     public Image playerHealthBar;
     public Image enemyHealthBar;
@@ -96,42 +100,17 @@ public class GameManager : MonoBehaviour
         //Load userInfo
         StartCoroutine(fbManager.LoadData("users/" + userID, LoadedUser));
 
-        playerOneAnimator.SetTrigger("Idle");
-        playerTwoAnimator.SetTrigger("Idle");
+        leopard.SetTrigger("Idle");
+        zebra.SetTrigger("Idle");
 
-        turn = "Player1";
-
-        player1 = new PlayerInfo();
-        player1.currentHealth = 100;
-        player1.maxHealth = 100;
-        player1.power = 0;
-        player1.blockState = BlockSideState.None;
-
-        player2 = new PlayerInfo();
-        player2.currentHealth = 100;
-        player2.maxHealth = 100;
-        player2.power = 0;
-        player2.blockState = BlockSideState.None;
-
-        currentGameState = GameState.playerSelection;
-
-        me = "Player1";
-        if(me == "Player1")
-        {
-            myPlayer = player1;
-            enemyPlayer = player2;
-        }
-        else
-        {
-            myPlayer = player2;
-            enemyPlayer = player1;
-        }
-
-        enemyPlayer.blockState = BlockSideState.Right;
+        currentGameState = GameState.waitingForMatchStart;
     }
 
     private void Update()
     {
+        MyPlayerHealth();
+        EnemyPlayerHealth();
+        state.text = currentGameState.ToString();
         timer += Time.deltaTime;
 
         if(timer >= downloadInterval)
@@ -163,12 +142,16 @@ public class GameManager : MonoBehaviour
             if (userID == player1UserId)
             {
                 myPlayer = currentGameInfo.player1;
+                myCharacter = leopard;
                 enemyPlayer = currentGameInfo.player2;
+                enemyCharacter = zebra;
             }
             else
             {
                 myPlayer = currentGameInfo.player2;
+                myCharacter = zebra;
                 enemyPlayer = currentGameInfo.player1;
+                enemyCharacter = leopard;
             }
 
             string whosTurn = currentGameInfo.turn;
@@ -213,10 +196,10 @@ public class GameManager : MonoBehaviour
         {
             if (selection == "PunchLeft")
             {
-                playerOneAnimator.SetTrigger("Punch");
+                myCharacter.SetTrigger("Punch");
                 if (enemyPlayer.blockState == BlockSideState.Right || enemyPlayer.blockState == BlockSideState.None)
                 {
-                    playerTwoAnimator.SetTrigger("Damaged");
+                    enemyCharacter.SetTrigger("Damaged");
                     enemyPlayer.currentHealth -= 10;
                 }
                 else if (enemyPlayer.blockState == BlockSideState.Left)
@@ -232,10 +215,10 @@ public class GameManager : MonoBehaviour
 
             if (selection == "PunchRight")
             {
-                playerOneAnimator.SetTrigger("Punch");
+                myCharacter.SetTrigger("Punch");
                 if (enemyPlayer.blockState == BlockSideState.Left || enemyPlayer.blockState == BlockSideState.None)
                 {
-                    playerTwoAnimator.SetTrigger("Damaged");
+                    enemyCharacter.SetTrigger("Damaged");
                     Debug.Log("Punch Right");
                     enemyPlayer.currentHealth -= 10;
                 }
@@ -252,13 +235,13 @@ public class GameManager : MonoBehaviour
 
             if (selection == "BlockLeft")
             {
-                playerOneAnimator.SetTrigger("Block");
+                myCharacter.SetTrigger("Block");
                 myPlayer.blockState = BlockSideState.Left;
             }
 
             if (selection == "BlockRight")
             {
-                playerOneAnimator.SetTrigger("Block");
+                myCharacter.SetTrigger("Block");
                 myPlayer.blockState = BlockSideState.Right;
             }
 
@@ -288,21 +271,21 @@ public class GameManager : MonoBehaviour
             //turn = "Player2";
             //enemy turn, my player cannot do anything
 
-            string whos_turn = currentGameInfo.turn;
-            string player1_user_id = currentGameInfo.player1.userID;
-            string player2_user_id = currentGameInfo.player2.userID;
+            string whosTurn = currentGameInfo.turn;
+            string player1UserId = currentGameInfo.player1.userID;
+            string player2UserId = currentGameInfo.player2.userID;
 
-            if (whos_turn == "Player1")
+            if (whosTurn == "Player1")
             {
-                if (player1_user_id == userID)
+                if (player1UserId == userID)
                 {
                     currentGameState = GameState.playerSelection;
                 }
             }
 
-            if (whos_turn == "Player2")
+            if (whosTurn == "Player2")
             {
-                if (player2_user_id == userID)
+                if (player2UserId == userID)
                 {
                     currentGameState = GameState.playerSelection;
                 }
@@ -451,69 +434,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(fbManager.LoadData("games/" + user.activeGame, GameLoaded));
     }
 
-    /*
-    public void PlayerTwo()
-    {
-        if (currentGameState == GameState.performSelection)
-        {
-            if (selection == "PunchLeft")
-            {
-                if (myPlayer.blockState == BlockSideState.Right)
-                {
-                    playerOneAnimator.SetTrigger("Damaged");
-                    Debug.Log("Punch Left");
-                    myPlayer.currentHealth -= 10;
-                }
-                else if (myPlayer.blockState == BlockSideState.Left)
-                {
-                    Debug.Log("Punch failed");
-                    myPlayer.power += 10;
-                }
-                else
-                {
-                    Debug.Log("Selection failed");
-                }
-            }
-
-            if (selection == "PunchRight")
-            {
-                if (myPlayer.blockState == BlockSideState.Left)
-                {
-                    playerOneAnimator.SetTrigger("Damaged");
-                    Debug.Log("Punch Right");
-                    myPlayer.currentHealth -= 10;
-                }
-                else if (myPlayer.blockState == BlockSideState.Right)
-                {
-                    Debug.Log("Punch failed");
-                    myPlayer.power += 10;
-                }
-                else
-                {
-                    Debug.Log("Selection failed");
-                }
-            }
-
-            if (selection == "BlockLeft")
-            {
-                playerTwoAnimator.SetTrigger("Block");
-                enemyPlayer.blockState = BlockSideState.Left;
-            }
-
-            if (selection == "BlockRight")
-            {
-                playerTwoAnimator.SetTrigger("Block");
-                enemyPlayer.blockState = BlockSideState.Right;
-            }
-
-            currentGameState = GameState.updateDatabase;
-            turn = "Player1";
-        }
-
-        selection = null;
-        currentGameState = GameState.playerSelection;
-    }
-    */
     //GUI Buttons and bars
     public void BlockLeftButton()
     {
@@ -534,15 +454,20 @@ public class GameManager : MonoBehaviour
     {
         selection = "PunchRight";
     }
-/*
+
     public void EnemyPlayerHealth()
     {
-        enemyHealthBar.fillAmount = enemyPlayer.currentHealth / enemyPlayer.maxHealth;
+        if(enemyPlayer != null)
+        {
+            enemyHealthBar.fillAmount = (float)enemyPlayer.currentHealth / (float)enemyPlayer.maxHealth;
+        }
     }
 
     public void MyPlayerHealth()
     {
-        playerHealthBar.fillAmount = myPlayer.currentHealth / myPlayer.maxHealth;
+        if(myPlayer != null)
+        {
+            playerHealthBar.fillAmount = (float)myPlayer.currentHealth / (float)myPlayer.maxHealth;
+        }
     }
-    */
 }
