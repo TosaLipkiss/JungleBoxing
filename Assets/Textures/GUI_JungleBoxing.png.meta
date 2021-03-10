@@ -1,0 +1,588 @@
+fileFormatVersion: 2
+guid: f99f30190fba2884796b3d49a2920a20
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1265254559599304170
+    second: GUI_JungleBoxing_0
+  - first:
+      213: -5838899609801585972
+    second: GUI_JungleBoxing_1
+  - first:
+      213: -6941952392626318227
+    second: GUI_JungleBoxing_2
+  - first:
+      213: -403067683897088033
+    second: GUI_JungleBoxing_3
+  - first:
+      213: -177016781912149001
+    second: GUI_JungleBoxing_4
+  - first:
+      213: 5618359209469939627
+    second: GUI_JungleBoxing_5
+  - first:
+      213: -8700806419149114237
+    second: GUI_JungleBoxing_6
+  - first:
+      213: -5977949662589141137
+    second: GUI_JungleBoxing_7
+  - first:
+      213: -4590413241957561724
+    second: GUI_JungleBoxing_8
+  - first:
+      213: -3273600099066357238
+    second: GUI_JungleBoxing_9
+  - first:
+      213: -4251125478426226745
+    second: GUI_JungleBoxing_10
+  - first:
+      213: -3094448544631112383
+    second: GUI_JungleBoxing_11
+  - first:
+      213: 5283208265721423944
+    second: GUI_JungleBoxing_12
+  - first:
+      213: -7098039778325694446
+    second: GUI_JungleBoxing_13
+  - first:
+      213: -3294325681571512448
+    second: GUI_JungleBoxing_14
+  - first:
+      213: -5386850904881125829
+    second: GUI_JungleBoxing_15
+  - first:
+      213: -842157376273985503
+    second: GUI_JungleBoxing_16
+  - first:
+      213: 7157791172019124264
+    second: GUI_JungleBoxing_17
+  - first:
+      213: -1522901404401856355
+    second: GUI_JungleBoxing_18
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_0
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 1862
+        width: 311
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aed1c5f71561f8110800000000000000
+      internalID: 1265254559599304170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_1
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 1666
+        width: 812
+        height: 299
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cca0c9e9dbf08fea0800000000000000
+      internalID: -5838899609801585972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_2
+      rect:
+        serializedVersion: 2
+        x: 1426
+        y: 1819
+        width: 552
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d64d5d5341b39af90800000000000000
+      internalID: -6941952392626318227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_3
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 1766
+        width: 311
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd7efd8b314086af0800000000000000
+      internalID: -403067683897088033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_4
+      rect:
+        serializedVersion: 2
+        x: 1574
+        y: 1746
+        width: 222
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f3f7dabc2c1b8df0800000000000000
+      internalID: -177016781912149001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_5
+      rect:
+        serializedVersion: 2
+        x: 1574
+        y: 1692
+        width: 222
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baf00050feb68fd40800000000000000
+      internalID: 5618359209469939627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_6
+      rect:
+        serializedVersion: 2
+        x: 1499
+        y: 1625
+        width: 407
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 384bd2f19a6804780800000000000000
+      internalID: -8700806419149114237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_7
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 1373
+        width: 247
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6f3534547e0a0da0800000000000000
+      internalID: -5977949662589141137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_8
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 1069
+        width: 868
+        height: 556
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48acedc3a739b40c0800000000000000
+      internalID: -4590413241957561724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_9
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 1406
+        width: 60
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0a577edd06d192d0800000000000000
+      internalID: -3273600099066357238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_10
+      rect:
+        serializedVersion: 2
+        x: 1840
+        y: 1406
+        width: 60
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cfcaca96e7f005c0800000000000000
+      internalID: -4251125478426226745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_11
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 1068
+        width: 247
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14db989917f4e05d0800000000000000
+      internalID: -3094448544631112383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_12
+      rect:
+        serializedVersion: 2
+        x: 1454
+        y: 1244
+        width: 231
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 848abb01de9b15940800000000000000
+      internalID: 5283208265721423944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_13
+      rect:
+        serializedVersion: 2
+        x: 1731
+        y: 1120
+        width: 247
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 218fd4bbd62be7d90800000000000000
+      internalID: -7098039778325694446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_14
+      rect:
+        serializedVersion: 2
+        x: 1467
+        y: 1124
+        width: 231
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08fbb772f343842d0800000000000000
+      internalID: -3294325681571512448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_15
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 887
+        width: 195
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b36a19c84af0e35b0800000000000000
+      internalID: -5386850904881125829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_16
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 887
+        width: 195
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 120d636045e0054f0800000000000000
+      internalID: -842157376273985503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_17
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 887
+        width: 147
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82870a8b525955360800000000000000
+      internalID: 7157791172019124264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUI_JungleBoxing_18
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 687
+        width: 515
+        height: 381
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d901faacd319ddae0800000000000000
+      internalID: -1522901404401856355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: aafb5d87c9e584d46b8b7b53bbf2819b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
