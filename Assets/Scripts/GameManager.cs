@@ -55,19 +55,22 @@ public class GameManager : MonoBehaviour
     string userID;
     FirebaseManager fbManager;
 
-    public Image playerOneHealthBar;
-    public Image playerTwoHealthBar;
+    public Image playerLeopardHealthBar;
+    public Image playerZebraHealthBar;
 
     public Animator leopard;
     public Animator zebra;
 
-    public GameObject playerOnePower1;
-    public GameObject playerOnePower2;
-    public GameObject playerOnePower3;
+    public GameObject playerLeopardPower1;
+    public GameObject playerLeopardPower2;
+    public GameObject playerLeopardPower3;
 
-    public GameObject playerTwoPower1;
-    public GameObject playerTwoPower2;
-    public GameObject playerTwoPower3;
+    public GameObject playerZebraPower1;
+    public GameObject playerZebraPower2;
+    public GameObject playerZebraPower3;
+
+    public GameObject playerLeopardTurn;
+    public GameObject playerZebraTurn;
 
     // string turn;
     // string me;
@@ -89,6 +92,9 @@ public class GameManager : MonoBehaviour
     GameObject enemyPlayerPower1;
     GameObject enemyPlayerPower2;
     GameObject enemyPlayerPower3;
+
+    GameObject myPlayerTurn;
+    GameObject enemyPlayerTurn;
 
     public AudioSource audioSource;
     public AudioClip punch;
@@ -169,33 +175,37 @@ public class GameManager : MonoBehaviour
             {
                 myPlayer = currentGameInfo.player1;
                 myCharacter = leopard;
-                myPlayerHealthbar = playerOneHealthBar;
-                myPlayerPower1 = playerOnePower1;
-                myPlayerPower2 = playerOnePower2;
-                myPlayerPower3 = playerOnePower3;
+                myPlayerHealthbar = playerLeopardHealthBar;
+                myPlayerPower1 = playerLeopardPower1;
+                myPlayerPower2 = playerLeopardPower2;
+                myPlayerPower3 = playerLeopardPower3;
+                myPlayerTurn = playerLeopardTurn;
 
                 enemyPlayer = currentGameInfo.player2;
                 enemyCharacter = zebra;
-                enemyHealthbar = playerTwoHealthBar;
-                enemyPlayerPower1 = playerTwoPower1;
-                enemyPlayerPower2 = playerTwoPower2;
-                enemyPlayerPower3 = playerTwoPower3;
+                enemyHealthbar = playerZebraHealthBar;
+                enemyPlayerPower1 = playerZebraPower1;
+                enemyPlayerPower2 = playerZebraPower2;
+                enemyPlayerPower3 = playerZebraPower3;
+                enemyPlayerTurn = playerZebraTurn;
             }
             else
             {
                 myPlayer = currentGameInfo.player2;
                 myCharacter = zebra;
-                myPlayerHealthbar = playerTwoHealthBar;
-                myPlayerPower1 = playerTwoPower1;
-                myPlayerPower2 = playerTwoPower2;
-                myPlayerPower3 = playerTwoPower3;
+                myPlayerHealthbar = playerZebraHealthBar;
+                myPlayerPower1 = playerZebraPower1;
+                myPlayerPower2 = playerZebraPower2;
+                myPlayerPower3 = playerZebraPower3;
+                myPlayerTurn = playerZebraTurn;
 
                 enemyPlayer = currentGameInfo.player1;
                 enemyCharacter = leopard;
-                enemyHealthbar = playerOneHealthBar;
-                enemyPlayerPower1 = playerOnePower1;
-                enemyPlayerPower2 = playerOnePower2;
-                enemyPlayerPower3 = playerOnePower3;
+                enemyHealthbar = playerLeopardHealthBar;
+                enemyPlayerPower1 = playerLeopardPower1;
+                enemyPlayerPower2 = playerLeopardPower2;
+                enemyPlayerPower3 = playerLeopardPower3;
+                enemyPlayerTurn = playerLeopardTurn;
             }
 
             string whosTurn = currentGameInfo.turn;
@@ -228,6 +238,8 @@ public class GameManager : MonoBehaviour
 
         if (currentGameState == GameState.playerSelection)
         {
+            enemyPlayerTurn.SetActive(false);
+            myPlayerTurn.SetActive(true);
             if (selection != null)
             {
                 currentGameState = GameState.performSelection;
@@ -326,10 +338,8 @@ public class GameManager : MonoBehaviour
 
         if(currentGameState == GameState.enemyTurn)
         {
-            Debug.Log("enemy turn");
-            //turn = "Player2";
-            //enemy turn, my player cannot do anything
-
+            enemyPlayerTurn.SetActive(true);
+            myPlayerTurn.SetActive(false);
             string whosTurn = currentGameInfo.turn;
             string player1UserId = currentGameInfo.player1.userID;
             string player2UserId = currentGameInfo.player2.userID;

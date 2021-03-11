@@ -12357,16 +12357,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: {fileID: 1417668007}
   status: {fileID: 1666108171}
-  playerOneHealthBar: {fileID: 1389843048}
-  playerTwoHealthBar: {fileID: 1837361329}
+  playerLeopardHealthBar: {fileID: 1389843048}
+  playerZebraHealthBar: {fileID: 1837361329}
   leopard: {fileID: 1553200986}
   zebra: {fileID: 1119817163}
-  playerOnePower1: {fileID: 991550675}
-  playerOnePower2: {fileID: 762092680}
-  playerOnePower3: {fileID: 1464124912}
-  playerTwoPower1: {fileID: 1046155783}
-  playerTwoPower2: {fileID: 2112827984}
-  playerTwoPower3: {fileID: 1575621259}
+  playerLeopardPower1: {fileID: 991550675}
+  playerLeopardPower2: {fileID: 762092680}
+  playerLeopardPower3: {fileID: 1464124912}
+  playerZebraPower1: {fileID: 1046155783}
+  playerZebraPower2: {fileID: 2112827984}
+  playerZebraPower3: {fileID: 1575621259}
+  playerLeopardTurn: {fileID: 409155966}
+  playerZebraTurn: {fileID: 127913838}
   audioSource: {fileID: 688131385}
   punch: {fileID: 8300000, guid: 06039ac40169a564799d87d8f0ec9c62, type: 3}
   block: {fileID: 8300000, guid: 1dd132fecaa53cf48898c475ea1e0ba0, type: 3}
@@ -25308,7 +25310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1944839413}
   m_Layer: 5
-  m_Name: Player_2
+  m_Name: PlayerZebra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25908,7 +25910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2116539811}
   m_Layer: 5
-  m_Name: Player_1
+  m_Name: PlayerLeopard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
