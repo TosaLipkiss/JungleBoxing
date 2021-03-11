@@ -11,9 +11,9 @@ public class PlayerInfo
 {
     public string displayName;
     public string userID;
+    public int currentPower;
     public int currentHealth;
     public int maxHealth;
-    public int power;
     public BlockSideState blockState;
 }
 
@@ -55,11 +55,22 @@ public class GameManager : MonoBehaviour
     string userID;
     FirebaseManager fbManager;
 
+    public Image playerOneHealthBar;
+    public Image playerTwoHealthBar;
+
     public Animator leopard;
     public Animator zebra;
 
-   // string turn;
-   // string me;
+    public GameObject playerOnePower1;
+    public GameObject playerOnePower2;
+    public GameObject playerOnePower3;
+
+    public GameObject playerTwoPower1;
+    public GameObject playerTwoPower2;
+    public GameObject playerTwoPower3;
+
+    // string turn;
+    // string me;
     string selection = null;
 
     PlayerInfo enemyPlayer;
@@ -68,11 +79,23 @@ public class GameManager : MonoBehaviour
     Animator myCharacter;
     Animator enemyCharacter;
 
-    //PlayerInfo player1;
-    //PlayerInfo player2;
+    Image myPlayerHealthbar;
+    Image enemyHealthbar;
 
-    public Image playerHealthBar;
-    public Image enemyHealthBar;
+    GameObject myPlayerPower1;
+    GameObject myPlayerPower2;
+    GameObject myPlayerPower3;
+
+    GameObject enemyPlayerPower1;
+    GameObject enemyPlayerPower2;
+    GameObject enemyPlayerPower3;
+
+    public AudioSource audioSource;
+    public AudioClip punch;
+    public AudioClip block;
+
+    public AudioSource mjauSource;
+    public AudioClip mjau;
 
     GameState currentGameState;
 
@@ -108,8 +131,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        MyPlayerPower();
         MyPlayerHealth();
+        EnemyPlayerPower();
         EnemyPlayerHealth();
+
         state.text = currentGameState.ToString();
         timer += Time.deltaTime;
 
@@ -143,15 +169,33 @@ public class GameManager : MonoBehaviour
             {
                 myPlayer = currentGameInfo.player1;
                 myCharacter = leopard;
+                myPlayerHealthbar = playerOneHealthBar;
+                myPlayerPower1 = playerOnePower1;
+                myPlayerPower2 = playerOnePower2;
+                myPlayerPower3 = playerOnePower3;
+
                 enemyPlayer = currentGameInfo.player2;
                 enemyCharacter = zebra;
+                enemyHealthbar = playerTwoHealthBar;
+                enemyPlayerPower1 = playerTwoPower1;
+                enemyPlayerPower2 = playerTwoPower2;
+                enemyPlayerPower3 = playerTwoPower3;
             }
             else
             {
                 myPlayer = currentGameInfo.player2;
                 myCharacter = zebra;
+                myPlayerHealthbar = playerTwoHealthBar;
+                myPlayerPower1 = playerTwoPower1;
+                myPlayerPower2 = playerTwoPower2;
+                myPlayerPower3 = playerTwoPower3;
+
                 enemyPlayer = currentGameInfo.player1;
                 enemyCharacter = leopard;
+                enemyHealthbar = playerOneHealthBar;
+                enemyPlayerPower1 = playerOnePower1;
+                enemyPlayerPower2 = playerOnePower2;
+                enemyPlayerPower3 = playerOnePower3;
             }
 
             string whosTurn = currentGameInfo.turn;
@@ -196,51 +240,66 @@ public class GameManager : MonoBehaviour
         {
             if (selection == "PunchLeft")
             {
+                mjauSource.PlayOneShot(mjau);
                 myCharacter.SetTrigger("Punch");
                 if (enemyPlayer.blockState == BlockSideState.Right || enemyPlayer.blockState == BlockSideState.None)
                 {
+                    audioSource.PlayOneShot(punch);
                     enemyCharacter.SetTrigger("Damaged");
-                    enemyPlayer.currentHealth -= 10;
+                    Punch();
                 }
                 else if (enemyPlayer.blockState == BlockSideState.Left)
                 {
-                    Debug.Log("Punch failed");
-                    enemyPlayer.power += 10;
+                    audioSource.PlayOneShot(block);
+                    enemyCharacter.SetTrigger("Block");
+                    enemyPlayer.currentPower++;
                 }
                 else
                 {
                     Debug.Log("Selection failed");
                 }
+
+                myPlayer.currentPower = 0;
+                myPlayer.blockState = BlockSideState.None;
+                enemyPlayer.blockState = BlockSideState.None;
             }
 
             if (selection == "PunchRight")
             {
+                mjauSource.PlayOneShot(mjau);
                 myCharacter.SetTrigger("Punch");
                 if (enemyPlayer.blockState == BlockSideState.Left || enemyPlayer.blockState == BlockSideState.None)
                 {
+                    audioSource.PlayOneShot(punch);
                     enemyCharacter.SetTrigger("Damaged");
-                    Debug.Log("Punch Right");
-                    enemyPlayer.currentHealth -= 10;
+                    Punch();
                 }
                 else if (enemyPlayer.blockState == BlockSideState.Right)
                 {
-                    Debug.Log("Punch failed");
-                    enemyPlayer.power += 10;
+                    audioSource.PlayOneShot(block);
+                    enemyCharacter.SetTrigger("Block");
+                    enemyPlayer.currentPower++;
                 }
                 else
                 {
                     Debug.Log("Selection failed");
                 }
+
+                myPlayer.currentPower = 0;
+                myPlayer.blockState = BlockSideState.None;
+                enemyPlayer.blockState = BlockSideState.None;
             }
 
             if (selection == "BlockLeft")
             {
+                audioSource.PlayOneShot(block);
                 myCharacter.SetTrigger("Block");
                 myPlayer.blockState = BlockSideState.Left;
             }
 
             if (selection == "BlockRight")
             {
+                audioSource.PlayOneShot(block);
                 myCharacter.SetTrigger("Block");
                 myPlayer.blockState = BlockSideState.Right;
             }
@@ -362,14 +421,14 @@ public class GameManager : MonoBehaviour
             newGame.player1 = new PlayerInfo();
             newGame.player1.currentHealth = 100;
             newGame.player1.maxHealth = 100;
-            newGame.player1.power = 0;
+            newGame.player1.currentPower = 0;
             newGame.player1.blockState = BlockSideState.None;
             newGame.player1.userID = userID;
 
             newGame.player2 = new PlayerInfo();
             newGame.player2.currentHealth = 100;
             newGame.player2.maxHealth = 100;
-            newGame.player2.power = 0;
+            newGame.player2.currentPower = 0;
             newGame.player2.blockState = BlockSideState.None;
             newGame.player2.userID = "";
 
@@ -459,7 +518,7 @@ public class GameManager : MonoBehaviour
     {
         if(enemyPlayer != null)
         {
-            enemyHealthBar.fillAmount = (float)enemyPlayer.currentHealth / (float)enemyPlayer.maxHealth;
+            enemyHealthbar.fillAmount = (float)enemyPlayer.currentHealth / (float)enemyPlayer.maxHealth;
         }
     }
 
@@ -467,7 +526,97 @@ public class GameManager : MonoBehaviour
     {
         if(myPlayer != null)
         {
-            playerHealthBar.fillAmount = (float)myPlayer.currentHealth / (float)myPlayer.maxHealth;
+            myPlayerHealthbar.fillAmount = (float)myPlayer.currentHealth / (float)myPlayer.maxHealth;
+        }
+    }
+    public void MyPlayerPower()
+    {
+        if(myPlayer != null)
+        {
+            if (myPlayer.currentPower == 1)
+            {
+                myPlayerPower1.SetActive(true);
+            }
+            else if (myPlayer.currentPower == 2)
+            {
+                myPlayerPower1.SetActive(true);
+                myPlayerPower2.SetActive(true);
+            }
+            else if (myPlayer.currentPower == 3)
+            {
+                myPlayerPower1.SetActive(true);
+                myPlayerPower2.SetActive(true);
+                myPlayerPower3.SetActive(true);
+            }
+            else if (myPlayer.currentPower == 0)
+            {
+                myPlayerPower1.SetActive(false);
+                myPlayerPower2.SetActive(false);
+                myPlayerPower3.SetActive(false);
+            }
+            else
+            {
+                Debug.Log(myPlayer.currentPower);
+            }
+        }
+    }
+    
+    public void EnemyPlayerPower()
+    {
+        if(enemyPlayer != null)
+        {
+            if (enemyPlayer.currentPower == 1)
+            {
+                enemyPlayerPower1.SetActive(true);
+            }
+            else if (enemyPlayer.currentPower == 2)
+            {
+                enemyPlayerPower1.SetActive(true);
+                enemyPlayerPower2.SetActive(true);
+            }
+            else if (enemyPlayer.currentPower >= 3)
+            {
+                enemyPlayerPower1.SetActive(true);
+                enemyPlayerPower2.SetActive(true);
+                enemyPlayerPower3.SetActive(true);
+            }
+            else if (enemyPlayer.currentPower == 0)
+            {
+                enemyPlayerPower1.SetActive(false);
+                enemyPlayerPower2.SetActive(false);
+                enemyPlayerPower3.SetActive(false);
+            }
+            else
+            {
+                Debug.Log(myPlayer.currentPower);
+            }
+        }
+    }
+
+    public void Punch()
+    {
+        if (myPlayer != null)
+        {
+            if (myPlayer.currentPower == 1)
+            {
+                enemyPlayer.currentHealth -= 15;
+            }
+            else if (myPlayer.currentPower == 2)
+            {
+                enemyPlayer.currentHealth -= 25;
+            }
+            else if (myPlayer.currentPower == 3)
+            {
+                enemyPlayer.currentHealth -= 50;
+            }
+            else if (myPlayer.currentPower == 0)
+            {
+                enemyPlayer.currentHealth -= 10;
+            }
+            else
+            {
+                Debug.Log("Punch failed or blocked");
+            }
         }
     }
 }
