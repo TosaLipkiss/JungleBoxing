@@ -49,6 +49,14 @@ public class GameManager : MonoBehaviour
     float downloadInterval = 10.0f;
     float timer = 0f;
 
+    float punchSoundTimer = 0f;
+    float playerIdleAnimationInterval;
+    float enemyIdleAnimationInterval;
+    float playerIdleTimer = 0f;
+    float enemyIdleTimer = 0f;
+    int playerIdleAnimation;
+    int enemyIdleAnimation;
+
     public Text state;
     public Text status;
     UserInfo user;
@@ -141,6 +149,9 @@ public class GameManager : MonoBehaviour
         MyPlayerHealth();
         EnemyPlayerPower();
         EnemyPlayerHealth();
+
+        enemyIdleTimer += Time.deltaTime;
+        playerIdleTimer += Time.deltaTime;
 
         state.text = currentGameState.ToString();
         timer += Time.deltaTime;
@@ -238,8 +249,11 @@ public class GameManager : MonoBehaviour
 
         if (currentGameState == GameState.playerSelection)
         {
+            IdleAnimationSwitch();
+
             enemyPlayerTurn.SetActive(false);
             myPlayerTurn.SetActive(true);
+
             if (selection != null)
             {
                 currentGameState = GameState.performSelection;
@@ -250,6 +264,7 @@ public class GameManager : MonoBehaviour
         //Fight moves
         if (currentGameState == GameState.performSelection)
         {
+            punchSoundTimer += Time.deltaTime;
             if (selection == "PunchLeft")
             {
                 mjauSource.PlayOneShot(mjau);
@@ -338,6 +353,7 @@ public class GameManager : MonoBehaviour
 
         if(currentGameState == GameState.enemyTurn)
         {
+            IdleAnimationSwitch();
             enemyPlayerTurn.SetActive(true);
             myPlayerTurn.SetActive(false);
             string whosTurn = currentGameInfo.turn;
@@ -627,6 +643,49 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Punch failed or blocked");
             }
+        }
+    }
+
+    public void IdleAnimationSwitch()
+    {
+        playerIdleAnimationInterval = UnityEngine.Random.Range(3f, 5f);
+        enemyIdleAnimationInterval = UnityEngine.Random.Range(3f, 5f);
+
+        playerIdleAnimation = UnityEngine.Random.Range(0, 3);
+        enemyIdleAnimation = UnityEngine.Random.Range(0, 3);
+
+        if (playerIdleTimer >= playerIdleAnimationInterval)
+        {
+            if (playerIdleAnimation == 0)
+            {
+                myCharacter.SetTrigger("SideStep");
+            }
+            else if (playerIdleAnimation == 1)
+            {
+                myCharacter.SetTrigger("ShortStep");
+            }
+            else
+            {
+                Debug.Log("Normal IDLE");
+            }
+            playerIdleTimer = 0f;
+        }
+
+        if (enemyIdleTimer >= enemyIdleAnimationInterval)
+        {
+            if (enemyIdleAnimation == 0)
+            {
+                enemyCharacter.SetTrigger("SideStep");
+            }
+            else if (enemyIdleAnimation == 1)
+            {
+                enemyCharacter.SetTrigger("ShortStep");
+            }
+            else
+            {
+                Debug.Log("Normal IDLE");
+            }
+            enemyIdleTimer = 0f;
         }
     }
 }
