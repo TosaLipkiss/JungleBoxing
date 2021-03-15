@@ -5,6 +5,7 @@ using Firebase.Auth;
 using Firebase.Database;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class PlayerInfo
@@ -57,6 +58,9 @@ public class GameManager : MonoBehaviour
     int playerIdleAnimation;
     int enemyIdleAnimation;
 
+    public static int leopardResultHealth;
+    public static int zebraResultHealth;
+
     public Text state;
     public Text status;
     UserInfo user;
@@ -84,8 +88,10 @@ public class GameManager : MonoBehaviour
     // string me;
     string selection = null;
 
-    PlayerInfo enemyPlayer;
-    PlayerInfo myPlayer;
+    [NonSerialized]
+    public PlayerInfo enemyPlayer = null;
+    [NonSerialized]
+    public PlayerInfo myPlayer = null;
 
     Animator myCharacter;
     Animator enemyCharacter;
@@ -120,7 +126,8 @@ public class GameManager : MonoBehaviour
         enemyTurn,
         playerSelection,
         performSelection,
-        updateDatabase
+        updateDatabase,
+        gameResult
     }
 
     private void Start()
@@ -260,7 +267,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
         //Fight moves
         if (currentGameState == GameState.performSelection)
         {
@@ -349,6 +355,11 @@ public class GameManager : MonoBehaviour
 
             StartCoroutine(fbManager.SaveData("games/" + currentGameInfo.gameID, JsonUtility.ToJson(currentGameInfo)));
             currentGameState = GameState.enemyTurn;
+
+            if (myPlayer.currentHealth <= 0f || enemyPlayer.currentHealth <= 0f)
+            {
+                currentGameState = GameState.gameResult;
+            }
         }
 
         if(currentGameState == GameState.enemyTurn)
@@ -375,6 +386,22 @@ public class GameManager : MonoBehaviour
                     currentGameState = GameState.playerSelection;
                 }
             }
+        }
+
+        if(currentGameState == GameState.gameResult)
+        {
+            if (myCharacter == leopard)
+            {
+                leopardResultHealth = myPlayer.currentHealth;
+                zebraResultHealth = enemyPlayer.currentHealth;
+            }
+            else
+            {
+                leopardResultHealth = enemyPlayer.currentHealth;
+                zebraResultHealth = myPlayer.currentHealth;
+            }
+
+            SceneManager.LoadScene("ResultScene");
         }
     }
 
@@ -445,14 +472,14 @@ public class GameManager : MonoBehaviour
             newGame.turn = "Player1";
 
             newGame.player1 = new PlayerInfo();
-            newGame.player1.currentHealth = 100;
+            newGame.player1.currentHealth = 10;
             newGame.player1.maxHealth = 100;
             newGame.player1.currentPower = 0;
             newGame.player1.blockState = BlockSideState.None;
             newGame.player1.userID = userID;
 
             newGame.player2 = new PlayerInfo();
-            newGame.player2.currentHealth = 100;
+            newGame.player2.currentHealth = 10;
             newGame.player2.maxHealth = 100;
             newGame.player2.currentPower = 0;
             newGame.player2.blockState = BlockSideState.None;
