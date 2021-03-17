@@ -49,14 +49,14 @@ public class GameManager : MonoBehaviour
 
     float downloadInterval = 10.0f;
     float timer = 0f;
-
-    float punchSoundTimer = 0f;
     float playerIdleAnimationInterval;
     float enemyIdleAnimationInterval;
     float playerIdleTimer = 0f;
     float enemyIdleTimer = 0f;
     int playerIdleAnimation;
     int enemyIdleAnimation;
+    float punchSoundTimer = 0f;
+    bool punchTimerActive = false;
 
     public static string resultUserID;
 
@@ -165,6 +165,17 @@ public class GameManager : MonoBehaviour
         state.text = currentGameState.ToString();
         timer += Time.deltaTime;
 
+        if(punchTimerActive == true)
+        {
+            punchSoundTimer += Time.deltaTime;
+            if(punchSoundTimer >= 0.2f)
+            {
+                audioSource.PlayOneShot(punch);
+                punchTimerActive = false;
+                punchSoundTimer = 0f;
+            }
+        }
+
         if(timer >= downloadInterval)
         {
             DownloadGameInfo();
@@ -272,14 +283,14 @@ public class GameManager : MonoBehaviour
         //Fight moves
         if (currentGameState == GameState.performSelection)
         {
-            punchSoundTimer += Time.deltaTime;
             if (selection == "PunchLeft")
             {
                 mjauSource.PlayOneShot(mjau);
                 myCharacter.SetTrigger("Punch");
                 if (enemyPlayer.blockState == BlockSideState.Right || enemyPlayer.blockState == BlockSideState.None)
                 {
-                    audioSource.PlayOneShot(punch);
+                    punchTimerActive = true;
+                //    audioSource.PlayOneShot(punch);
                     enemyCharacter.SetTrigger("Damaged");
                     Punch();
                 }
@@ -305,7 +316,8 @@ public class GameManager : MonoBehaviour
                 myCharacter.SetTrigger("Punch");
                 if (enemyPlayer.blockState == BlockSideState.Left || enemyPlayer.blockState == BlockSideState.None)
                 {
-                    audioSource.PlayOneShot(punch);
+                    punchTimerActive = true;
+                    //    audioSource.PlayOneShot(punch);
                     enemyCharacter.SetTrigger("Damaged");
                     Punch();
                 }
@@ -475,14 +487,14 @@ public class GameManager : MonoBehaviour
             newGame.turn = "Player1";
 
             newGame.player1 = new PlayerInfo();
-            newGame.player1.currentHealth = 10;
+            newGame.player1.currentHealth = 100;
             newGame.player1.maxHealth = 100;
             newGame.player1.currentPower = 0;
             newGame.player1.blockState = BlockSideState.None;
             newGame.player1.userID = userID;
 
             newGame.player2 = new PlayerInfo();
-            newGame.player2.currentHealth = 10;
+            newGame.player2.currentHealth = 100;
             newGame.player2.maxHealth = 100;
             newGame.player2.currentPower = 0;
             newGame.player2.blockState = BlockSideState.None;
