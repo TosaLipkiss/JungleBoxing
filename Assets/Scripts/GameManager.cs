@@ -58,13 +58,15 @@ public class GameManager : MonoBehaviour
     int playerIdleAnimation;
     int enemyIdleAnimation;
 
+    public static string resultUserID;
+
     public static int leopardResultHealth;
     public static int zebraResultHealth;
 
     public Text state;
     public Text status;
     UserInfo user;
-    string userID;
+    public string userID;
     FirebaseManager fbManager;
 
     public Image playerLeopardHealthBar;
@@ -401,6 +403,7 @@ public class GameManager : MonoBehaviour
                 zebraResultHealth = myPlayer.currentHealth;
             }
 
+            resultUserID = myPlayer.userID;
             SceneManager.LoadScene("ResultScene");
         }
     }

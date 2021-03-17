@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Firebase;
+using Firebase.Auth;
+using Firebase.Database;
 
 public class Result : MonoBehaviour
 {
     GameManager gameManager;
     public GameObject leopardPhoto;
     public GameObject zebraPhoto;
+    DatabaseReference removeUsers;
+    DatabaseReference removeGame;
 
     private void Start()
     {
@@ -26,6 +31,8 @@ public class Result : MonoBehaviour
 
     public void ExitResultButton()
     {
+
+        FirebaseDatabase.DefaultInstance.RootReference.Child("users/" + GameManager.resultUserID).SetValueAsync(null);
         SceneManager.LoadScene("MainMenuScene");
     }
 }
