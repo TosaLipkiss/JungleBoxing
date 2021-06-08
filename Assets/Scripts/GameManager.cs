@@ -351,12 +351,32 @@ public class GameManager : MonoBehaviour
                 myPlayer.blockState = BlockSideState.Right;
             }
 
+            if(myPlayer.userID == currentGameInfo.player1.userID)
+            {
+                currentGameInfo.player1 = myPlayer;
+            }
+            else if (myPlayer.userID == currentGameInfo.player2.userID)
+            {
+                currentGameInfo.player2 = myPlayer;
+            }
+
+            if (enemyPlayer.userID == currentGameInfo.player1.userID)
+            {
+                currentGameInfo.player1 = enemyPlayer;
+            }
+            else if (enemyPlayer.userID == currentGameInfo.player2.userID)
+            {
+                currentGameInfo.player2 = enemyPlayer;
+            }
+
+
             selection = null;
             currentGameState = GameState.updateDatabase;
         }
 
         if (currentGameState == GameState.updateDatabase)
         {
+            Debug.Log("UpdatingDatabase");
             // upload GameInfo to firebase
             if (currentGameInfo.turn == "Player1")
             {

@@ -28,7 +28,7 @@ public class GameStatus : MonoBehaviour
 		}
 		else
 		{
-			status.text = "Game started!";
+			status.text = "Game starting...";
 			if(timer > 1.0f)
             {
 				statusMessage.SetActive(false);
